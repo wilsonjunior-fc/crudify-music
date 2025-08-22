@@ -1,41 +1,16 @@
 import React from 'react';
 import { Component } from 'react';
 
-
+let albmxd = []
+for (let i = 0; i <= 10; i++) {
+  albmxd.push({
+    name: `Album ${i}`,
+    artist: `Artist ${i}`,
+  })
+}
 export default class albumgrid extends Component {
   state = {
-    albums: [{
-      name: "Album 1",
-      artist: "Artist 1",
-    },
-    {
-      name: "Album 2",
-      artist: "Artist 2",
-    },
-    {
-      name: "Album 3",
-      artist: "Artist 3",
-    },
-    {
-      name: "Album 4",
-      artist: "Artist 4",
-    },
-    {
-      name: "Album 5",
-      artist: "Artist 5",
-    },
-    {
-      name: "Album 6",
-      artist: "Artist 6",
-    },
-    {
-      name: "Album 7",
-      artist: "Artist 7",
-    },
-    {
-      name: "Album 8",
-      artist: "Artist 8",
-    }]
+    albums: albmxd
   }
   render() {
 
@@ -56,4 +31,3 @@ export default class albumgrid extends Component {
     </main>);
   }
 };
-
