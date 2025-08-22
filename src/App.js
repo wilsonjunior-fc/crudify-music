@@ -6,11 +6,13 @@ import Player from './Components/player';
 
 function App() {
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col">
+    <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
       <Header />
-      <div className="flex flex-1">
+      <div className="flex flex-1 min-h-0">
         <Sidebar />
-        <AlbumGrid />
+        <div className="flex-1 min-w-0 flex flex-col min-h-0">
+          <AlbumGrid />
+        </div>
       </div>
       <Player />
     </div>
