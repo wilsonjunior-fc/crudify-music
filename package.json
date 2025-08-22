@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:css": "bunx tailwindcss -o ./public/tailwind.css --watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
