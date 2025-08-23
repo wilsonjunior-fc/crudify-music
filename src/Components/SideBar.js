@@ -3,7 +3,7 @@ import { TbZoom } from "react-icons/tb";
 import { FaHome } from "react-icons/fa";
 import { CgAlbum } from "react-icons/cg";
 
-class Sidebar extends Component {
+export default class Sidebar extends Component {
   render() {
     return (
       <aside className="w-64 bg-gray-900 text-white p-4 border-r-3 border-gray-800 flex flex-col gap-2">
@@ -20,5 +20,3 @@ class Sidebar extends Component {
     );
   }
 }
-
-export default Sidebar;

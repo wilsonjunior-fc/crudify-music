@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import Header from './Components/header';
-import Sidebar from './Components/sidebar';
-import AlbumGrid from './Components/albumgrid';
-import Player from './Components/player';
+import Header from './Components/Header';
+import Sidebar from './Components/SideBar';
+import AlbumGrid from './Components/AlbumGrid';
+import Player from './Components/Player';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,5 +50,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

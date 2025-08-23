@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { FaPlay, FaPause } from "react-icons/fa";
 import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 
-class Player extends Component {
+export default class Player extends Component {
   render() {
     const { song, isPlaying, onTogglePlay } = this.props;
     return (
@@ -39,5 +39,3 @@ class Player extends Component {
     );
   }
 }
-
-export default Player;
