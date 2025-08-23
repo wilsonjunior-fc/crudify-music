@@ -8,18 +8,9 @@ const sampleUrls = [
   'https://www.youtube.com/watch?v=9bZkp7q19f0', // Michael Jackson - Billie Jean
 ];
 
-const albmxd = [];
-for (let i = 1; i <= 20; i++) {
-  albmxd.push({
-    name: `Album ${i}`,
-    artist: `Artist ${i}`,
-    url: sampleUrls[i % sampleUrls.length],
-  });
-}
-
 export default class AlbumGrid extends Component {
   state = {
-    albums: albmxd,
+    albums: JSON.parse(localStorage.getItem('albums')),
     opacity: 0
   }
 
@@ -48,7 +39,7 @@ export default class AlbumGrid extends Component {
               onClick={() => onPlaySong(album)}
             >
               <div className="bg-gray-600 h-32 rounded mb-2"></div>
-              <h3 className="text-white font-bold">{album.name}</h3>
+              <h3 className="text-white font-bold">{album.title}</h3>
               <p className="text-gray-400">{album.artist}</p>
             </div>
           ))}

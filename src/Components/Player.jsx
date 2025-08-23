@@ -8,7 +8,7 @@ export default class Player extends Component {
     return (
       <footer className="bg-gray-800 text-white p-4 flex items-center justify-between">
         <div style={{ width: '200px' }}>
-          <p className="font-bold truncate">{song.name}</p>
+          <p className="font-bold truncate">{song.title}</p>
           <p className="text-sm text-gray-400">{song.artist}</p>
         </div>
 
@@ -17,7 +17,7 @@ export default class Player extends Component {
             <TbPlayerTrackPrevFilled className='size-6' />
           </button>
 
-          <button 
+          <button
             className="mx-3 transition-transform duration-200 hover:scale-110 disabled:text-gray-600 disabled:cursor-not-allowed"
             onClick={onTogglePlay}
             disabled={!song.url}
