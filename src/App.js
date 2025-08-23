@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from './Components/header';
 import Sidebar from './Components/sidebar';
 import AlbumGrid from './Components/albumgrid';
