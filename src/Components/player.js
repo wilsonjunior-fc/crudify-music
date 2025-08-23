@@ -1,23 +1,43 @@
-import { FaPlay } from "react-icons/fa";
+import { Component } from 'react';
+import { FaPlay, FaPause } from "react-icons/fa";
 import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 
-const Player = () => {
-  return (
-    <footer className="bg-gray-800 text-white p-4 flex items-center justify-between">
-      <div>
-        <p className="font-bold">Song Title</p>
-        <p className="text-sm">Artist Name</p>
-      </div>
-      <div className="flex items-center">
-        <button className="mx-3 transition-transform duration-200 hover:scale-110"><TbPlayerTrackPrevFilled className='size-6 hover:text-gray-400 cursor-pointer' /></button>
-        <button className="mx-3 transition-transform duration-200 hover:scale-110"><FaPlay className='size-5 hover:text-gray-400 cursor-pointer' /></button>
-        <button className="mx-3 transition-transform duration-200 hover:scale-110"><TbPlayerTrackNextFilled className='size-6 hover:text-gray-400 cursor-pointer' /></button>
-      </div>
-      <div>
-        <p>Volume</p>
-      </div>
-    </footer>
-  );
-};
+class Player extends Component {
+  render() {
+    const { song, isPlaying, onTogglePlay } = this.props;
+    return (
+      <footer className="bg-gray-800 text-white p-4 flex items-center justify-between">
+        <div style={{ width: '200px' }}>
+          <p className="font-bold truncate">{song.name}</p>
+          <p className="text-sm text-gray-400">{song.artist}</p>
+        </div>
+
+        <div className="flex items-center">
+          <button disabled className="mx-3 text-gray-600 cursor-not-allowed">
+            <TbPlayerTrackPrevFilled className='size-6' />
+          </button>
+
+          <button 
+            className="mx-3 transition-transform duration-200 hover:scale-110 disabled:text-gray-600 disabled:cursor-not-allowed"
+            onClick={onTogglePlay}
+            disabled={!song.url}
+          >
+            {isPlaying ? (
+              <FaPause className='size-5 hover:text-gray-400 cursor-pointer' />
+            ) : (
+              <FaPlay className='size-5 hover:text-gray-400 cursor-pointer' />
+            )}
+          </button>
+
+          <button disabled className="mx-3 text-gray-600 cursor-not-allowed">
+            <TbPlayerTrackNextFilled className='size-6' />
+          </button>
+        </div>
+        <div style={{ width: '200px' }}>
+        </div>
+      </footer>
+    );
+  }
+}
 
 export default Player;
