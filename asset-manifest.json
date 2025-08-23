@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/crudify-music/static/js/main.2da518c9.js",
-    "index.html": "/crudify-music/index.html",
-    "main.2da518c9.js.map": "/crudify-music/static/js/main.2da518c9.js.map"
+    "main.js": "/crudify-music/static/static/js/main.2da518c9.js",
+    "index.html": "/crudify-music/static/index.html",
+    "main.2da518c9.js.map": "/crudify-music/static/static/js/main.2da518c9.js.map"
   },
   "entrypoints": [
     "static/js/main.2da518c9.js"
