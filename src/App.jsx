@@ -79,7 +79,7 @@ export default class App extends Component {
   }
 
   handleDeleteAlbum(albumId) {
-    if (window.confirm('Tem certeza que deseja remover este álbum?')) {
+    if (window.confirm('Are you sure?')) {
       this.setState(prevState => ({
         albums: prevState.albums.filter(album => album.id !== albumId),
       }));

@@ -1,66 +1,86 @@
-import { useState, useEffect } from 'react';
+import { Component } from 'react';
 
-export default function AlbumForm({ album, onSave, onCancel }) {
-  const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('');
-  const [cover, setCover] = useState('');
+export default class AlbumForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: this.props.album ? this.props.album.title : '',
+      artist: this.props.album ? this.props.album.artist : '',
+      cover: this.props.album ? this.props.album.cover : '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  useEffect(() => {
-    if (album) {
-      setTitle(album.title || '');
-      setArtist(album.artist || '');
-      setCover(album.cover || '');
+  componentDidUpdate(prevProps) {
+    if (this.props.album && this.props.album !== prevProps.album) {
+      this.setState({
+        title: this.props.album.title,
+        artist: this.props.album.artist,
+        cover: this.props.album.cover,
+      });
     }
-  }, [album]);
+  }
 
-  const handleSubmit = (e) => {
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
-    onSave({ ...album, title, artist, cover });
-  };
+    this.props.onSave({ ...this.props.album, ...this.state });
+  }
 
-  return (
-    <form onSubmit={handleSubmit} className="bg-zinc-800 p-6 rounded-lg space-y-4">
-      <h2 className="text-2xl font-bold">{album ? 'Editar Álbum' : 'Adicionar Álbum'}</h2>
-      <div>
-        <label htmlFor="title" className="block text-sm font-medium text-zinc-300">Título</label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full bg-zinc-700 p-2 rounded mt-1"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="artist" className="block text-sm font-medium text-zinc-300">Artista</label>
-        <input
-          id="artist"
-          type="text"
-          value={artist}
-          onChange={(e) => setArtist(e.target.value)}
-          className="w-full bg-zinc-700 p-2 rounded mt-1"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="cover" className="block text-sm font-medium text-zinc-300">URL da Capa</label>
-        <input
-          id="cover"
-          type="text"
-          value={cover}
-          onChange={(e) => setCover(e.target.value)}
-          className="w-full bg-zinc-700 p-2 rounded mt-1"
-        />
-      </div>
-      <div className="flex justify-end gap-4">
-        <button type="button" onClick={onCancel} className="bg-zinc-600 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded">
-          Cancelar
-        </button>
-        <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-          Salvar
-        </button>
-      </div>
-    </form>
-  );
+  render() {
+    const { onCancel, album } = this.props;
+    const { title, artist, cover } = this.state;
+    return (
+      <form onSubmit={this.handleSubmit} className="bg-zinc-800 p-6 rounded-lg space-y-4 w-full max-w-md">
+        <h2 className="text-2xl font-bold">{album ? 'Editar Álbum' : 'Adicionar Álbum'}</h2>
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-zinc-300">Título</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            value={title}
+            onChange={this.handleChange}
+            className="w-full bg-zinc-700 p-2 rounded mt-1"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="artist" className="block text-sm font-medium text-zinc-300">Artista</label>
+          <input
+            id="artist"
+            name="artist"
+            type="text"
+            value={artist}
+            onChange={this.handleChange}
+            className="w-full bg-zinc-700 p-2 rounded mt-1"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="cover" className="block text-sm font-medium text-zinc-300">URL da Capa</label>
+          <input
+            id="cover"
+            name="cover"
+            type="text"
+            value={cover}
+            onChange={this.handleChange}
+            className="w-full bg-zinc-700 p-2 rounded mt-1"
+          />
+        </div>
+        <div className="flex justify-end gap-4">
+          <button type="button" onClick={onCancel} className="bg-zinc-600 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded">
+            Cancelar
+          </button>
+          <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            Salvar
+          </button>
+        </div>
+      </form>
+    );
+  }
 }
