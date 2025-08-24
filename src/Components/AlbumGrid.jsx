@@ -36,7 +36,7 @@ export default class AlbumGrid extends Component {
             <div
               key={idx}
               className='bg-gray-800 hover:bg-gray-700 p-4 rounded cursor-pointer transition-transform duration-200 hover:scale-105'
-              onClick={() => onPlaySong(album)}
+              onClick={() => this.props.onAlbumClick(album)}
             >
               <div className="bg-gray-600 h-32 rounded mb-2"></div>
               <h3 className="text-white font-bold">{album.title}</h3>
