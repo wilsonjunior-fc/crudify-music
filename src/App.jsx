@@ -4,12 +4,19 @@ import Sidebar from './Components/SideBar';
 import AlbumGrid from './Components/AlbumGrid';
 import Player from './Components/Player';
 import AlbumView from './Components/AlbumView';
+import AlbumForm from './Components/AlbumForm';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      albums: [
+        { id: 1, title: 'Album 1', artist: 'Artist 1', cover: 'https://via.placeholder.com/150' },
+        { id: 2, title: 'Album 2', artist: 'Artist 2', cover: 'https://via.placeholder.com/150' },
+      ],
       currentAlbum: null,
+      editingAlbum: null,
+      isFormVisible: false,
       song: {
         url: null,
         title: 'No song selected',
@@ -21,6 +28,10 @@ export default class App extends Component {
     this.togglePlay = this.togglePlay.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.handleSaveAlbum = this.handleSaveAlbum.bind(this);
+    this.handleDeleteAlbum = this.handleDeleteAlbum.bind(this);
+    this.showForm = this.showForm.bind(this);
+    this.hideForm = this.hideForm.bind(this);
   }
 
   playSong(newSong) {
@@ -46,18 +57,65 @@ export default class App extends Component {
     this.setState({ currentAlbum: null });
   }
 
+  showForm(album = null) {
+    this.setState({ isFormVisible: true, editingAlbum: album });
+  }
+
+  hideForm() {
+    this.setState({ isFormVisible: false, editingAlbum: null });
+  }
+
+  handleSaveAlbum(albumToSave) {
+    if (albumToSave.id) { // Update
+      this.setState(prevState => ({
+        albums: prevState.albums.map(album => 
+          album.id === albumToSave.id ? albumToSave : album
+        ),
+      }));
+    } else { // Create
+      this.setState(prevState => ({
+        albums: [...prevState.albums, { ...albumToSave, id: Date.now() }],
+      }));
+    }
+    this.hideForm();
+  }
+
+  handleDeleteAlbum(albumId) {
+    if (window.confirm('Tem certeza que deseja remover este álbum?')) {
+      this.setState(prevState => ({
+        albums: prevState.albums.filter(album => album.id !== albumId),
+      }));
+    }
+  }
+
   render() {
-    const { song, isPlaying, currentAlbum } = this.state;
+    const { song, isPlaying, currentAlbum, albums, isFormVisible, editingAlbum } = this.state;
     return (
       <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
         <Header />
         <div className="flex flex-1 min-h-0">
           <Sidebar />
           <div className="flex-1 min-w-0 flex flex-col min-h-0 p-6">
+            {isFormVisible && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <AlbumForm 
+                  album={editingAlbum}
+                  onSave={this.handleSaveAlbum} 
+                  onCancel={this.hideForm} 
+                />
+              </div>
+            )}
             {currentAlbum ? (
               <AlbumView album={currentAlbum} onBack={this.handleBack} />
             ) : (
-              <AlbumGrid onAlbumClick={this.handleAlbumClick} onPlaySong={this.playSong} />
+              <AlbumGrid 
+                albums={albums}
+                onAlbumClick={this.handleAlbumClick} 
+                onPlaySong={this.playSong} 
+                onEdit={this.showForm}
+                onDelete={this.handleDeleteAlbum}
+                onAddAlbum={() => this.showForm()}
+              />
             )}
           </div>
         </div>
