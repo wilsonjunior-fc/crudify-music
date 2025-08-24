@@ -12,8 +12,8 @@ export default function AlbumView({ album, onBack }) {
       <h1 className="text-4xl font-bold">{album.title}</h1>
       <h2 className="text-xl text-zinc-400 mb-4">{album.artist}</h2>
       
-      <StarRating />
-      <CommentSection />
+      <StarRating initialRating={album.starRating}/>
+      <CommentSection initialComments={album.comments}/>
 
       {/* Aqui você pode adicionar a lista de músicas do álbum */}
     </div>

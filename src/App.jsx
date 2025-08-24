@@ -5,15 +5,13 @@ import AlbumGrid from './Components/AlbumGrid';
 import Player from './Components/Player';
 import AlbumView from './Components/AlbumView';
 import AlbumForm from './Components/AlbumForm';
+import { albums } from './lib/main';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      albums: [
-        { id: 1, title: 'Album 1', artist: 'Artist 1', cover: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Album 2', artist: 'Artist 2', cover: 'https://via.placeholder.com/150' },
-      ],
+      albums: albums,
       currentAlbum: null,
       editingAlbum: null,
       isFormVisible: false,
