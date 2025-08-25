@@ -37,6 +37,9 @@ export default function AlbumGrid({ albums, onAlbumClick, onPlaySong, onEdit, on
             <button onClick={() => onPlaySong(album)} className="mt-2 bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded text-sm">
               Play
             </button>
+            {/*FOR DEBUG, REMEMBER REMOVE THIS BEFORE*/}
+            <h6 className='text-xs text-gray-500 mt-2'>id: {album.id}</h6>
+            {/*--------------------------------------*/}
           </div>
         ))}
       </div>

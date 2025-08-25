@@ -5,13 +5,13 @@ import AlbumGrid from './Components/AlbumGrid';
 import Player from './Components/Player';
 import AlbumView from './Components/AlbumView';
 import AlbumForm from './Components/AlbumForm';
-import { albums } from './lib/main';
+import { firstAlbumLoad } from './lib/main';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      albums: albums,
+      albums: firstAlbumLoad,
       currentAlbum: null,
       editingAlbum: null,
       isFormVisible: false,
@@ -95,8 +95,8 @@ export default class App extends Component {
           <Sidebar />
           <div className="flex-1 min-w-0 flex flex-col min-h-0 p-6">
             {isFormVisible && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <AlbumForm 
+              <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
+                <AlbumForm
                   album={editingAlbum}
                   onSave={this.handleSaveAlbum} 
                   onCancel={this.hideForm} 

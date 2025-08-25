@@ -74,10 +74,10 @@ export default class AlbumForm extends Component {
         </div>
         <div className="flex justify-end gap-4">
           <button type="button" onClick={onCancel} className="bg-zinc-600 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded">
-            Cancelar
+            Cancel
           </button>
           <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-            Salvar
+            Save
           </button>
         </div>
       </form>
