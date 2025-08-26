@@ -1,19 +1,19 @@
 import { Component } from 'react';
 import Header from './Components/Header';
 import Sidebar from './Components/SideBar';
-import AlbumGrid from './Components/AlbumGrid';
+import MusicGrid from './Components/MusicGrid';
 import Player from './Components/Player';
-import AlbumView from './Components/AlbumView';
-import AlbumForm from './Components/AlbumForm';
-import { firstAlbumLoad } from './lib/main';
+import MusicView from './Components/MusicView';
+import MusicForm from './Components/MusicForm';
+import { getMusics } from './lib/main';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      albums: firstAlbumLoad,
-      currentAlbum: null,
-      editingAlbum: null,
+      musics: getMusics(),
+      currentMusic: null,
+      editingMusic: null,
       isFormVisible: false,
       song: {
         url: null,
@@ -24,10 +24,10 @@ export default class App extends Component {
     };
     this.playSong = this.playSong.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
-    this.handleAlbumClick = this.handleAlbumClick.bind(this);
+    this.handleMusicClick = this.handleMusicClick.bind(this);
     this.handleBack = this.handleBack.bind(this);
-    this.handleSaveAlbum = this.handleSaveAlbum.bind(this);
-    this.handleDeleteAlbum = this.handleDeleteAlbum.bind(this);
+    this.handleSaveMusic = this.handleSaveMusic.bind(this);
+    this.handleDeleteMusic = this.handleDeleteMusic.bind(this);
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
   }
@@ -45,49 +45,49 @@ export default class App extends Component {
         isPlaying: !prevState.isPlaying,
       }));
     }
-  }
+  }album
 
-  handleAlbumClick(album) {
-    this.setState({ currentAlbum: album });
+  handleMusicClick(music) {
+    this.setState({ currentMusic: music });
   }
 
   handleBack() {
-    this.setState({ currentAlbum: null });
+    this.setState({ currentMusic: null });
   }
 
-  showForm(album = null) {
-    this.setState({ isFormVisible: true, editingAlbum: album });
+  showForm(music = null) {
+    this.setState({ isFormVisible: true, editingMusic: music });
   }
 
   hideForm() {
-    this.setState({ isFormVisible: false, editingAlbum: null });
+    this.setState({ isFormVisible: false, editingMusic: null });
   }
 
-  handleSaveAlbum(albumToSave) {
-    if (albumToSave.id) { // Update
+  handleSaveMusic(musicToSave) {
+    if (musicToSave.id) { // Update
       this.setState(prevState => ({
-        albums: prevState.albums.map(album => 
-          album.id === albumToSave.id ? albumToSave : album
+        music: prevState.music.map(music => 
+          music.id === musicToSave.id ? musicToSave : music
         ),
       }));
     } else { // Create
       this.setState(prevState => ({
-        albums: [...prevState.albums, { ...albumToSave, id: Date.now() }],
+        albums: [...prevState.albums, { ...musicToSave, id: Date.now() }],
       }));
     }
     this.hideForm();
   }
 
-  handleDeleteAlbum(albumId) {
+  handleDeleteMusic(musicId) {
     if (window.confirm('Are you sure?')) {
       this.setState(prevState => ({
-        albums: prevState.albums.filter(album => album.id !== albumId),
+        musics: prevState.musics.filter(music => music.id !== musicId),
       }));
     }
   }
 
   render() {
-    const { song, isPlaying, currentAlbum, albums, isFormVisible, editingAlbum } = this.state;
+    const { song, isPlaying, currentMusic: currentAlbum, musics, isFormVisible, editingMusic } = this.state;
     return (
       <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
         <Header />
@@ -96,23 +96,23 @@ export default class App extends Component {
           <div className="flex-1 min-w-0 flex flex-col min-h-0 p-6">
             {isFormVisible && (
               <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
-                <AlbumForm
-                  album={editingAlbum}
+                <MusicForm
+                  album={editingMusic}
                   onSave={this.handleSaveAlbum} 
                   onCancel={this.hideForm} 
                 />
               </div>
             )}
             {currentAlbum ? (
-              <AlbumView album={currentAlbum} onBack={this.handleBack} />
+              <MusicView music={currentAlbum} onBack={this.handleBack} />
             ) : (
-              <AlbumGrid 
-                albums={albums}
-                onAlbumClick={this.handleAlbumClick} 
+              <MusicGrid 
+                musics={musics}
+                onMusicClick={this.handleMusicClick} 
                 onPlaySong={this.playSong} 
                 onEdit={this.showForm}
                 onDelete={this.handleDeleteAlbum}
-                onAddAlbum={() => this.showForm()}
+                onAddMusic={() => this.showForm()}
               />
             )}
           </div>

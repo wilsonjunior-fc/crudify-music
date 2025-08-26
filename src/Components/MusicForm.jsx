@@ -1,23 +1,23 @@
 import { Component } from 'react';
 
-export default class AlbumForm extends Component {
+export default class MusicForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.album ? this.props.album.title : '',
-      artist: this.props.album ? this.props.album.artist : '',
-      cover: this.props.album ? this.props.album.cover : '',
+      title: this.props.music ? this.props.music.title : '',
+      artist: this.props.music ? this.props.music.artist : '',
+      cover: this.props.music ? this.props.music.cover : '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.album && this.props.album !== prevProps.album) {
+    if (this.props.music !== prevProps.music) {
       this.setState({
-        title: this.props.album.title,
-        artist: this.props.album.artist,
-        cover: this.props.album.cover,
+        title: this.props.music.title,
+        artist: this.props.music.artist,
+        cover: this.props.music.cover,
       });
     }
   }
@@ -28,15 +28,15 @@ export default class AlbumForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSave({ ...this.props.album, ...this.state });
+    this.props.onSave({ ...this.props.music, ...this.state });
   }
 
   render() {
-    const { onCancel, album } = this.props;
+    const { onCancel, music } = this.props;
     const { title, artist, cover } = this.state;
     return (
       <form onSubmit={this.handleSubmit} className="bg-zinc-800 p-6 rounded-lg space-y-4 w-full max-w-md">
-        <h2 className="text-2xl font-bold">{album ? 'Editar Álbum' : 'Adicionar Álbum'}</h2>
+        <h2 className="text-2xl font-bold">{music ? 'Editar Álbum' : 'Adicionar Álbum'}</h2>
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-zinc-300">Título</label>
           <input

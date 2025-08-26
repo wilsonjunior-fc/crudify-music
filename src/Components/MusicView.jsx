@@ -3,11 +3,11 @@ import StarRating from './StarRating';
 import CommentSection from './CommentSection';
 import { Component } from 'react';
 
-export default class AlbumView extends Component {
+export default class MusicView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      album: this.props.album,
+      album: this.props.music,
       onBack: this.props.onBack
     }
   }
