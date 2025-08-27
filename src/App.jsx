@@ -5,7 +5,10 @@ import MusicGrid from './Components/MusicGrid';
 import Player from './Components/Player';
 import MusicView from './Components/MusicView';
 import MusicForm from './Components/MusicForm';
-import { getMusics, updateMusic, deleteMusic, createMusic } from './lib/main';
+import {
+  getMusics, updateMusic, deleteMusic,
+  createMusic, addCommentMusic, rateMusic
+} from './lib/main';
 
 export default class App extends Component {
   constructor(props) {
@@ -30,6 +33,8 @@ export default class App extends Component {
     this.handleDeleteMusic = this.handleDeleteMusic.bind(this);
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
+    this.handleAddComment = this.handleAddComment.bind(this);
+    this.handleRateMusic = this.handleRateMusic.bind(this);
   }
 
   playSong(newSong) {
@@ -66,10 +71,10 @@ export default class App extends Component {
   handleSaveMusic(musicToSave) {
     if (musicToSave.id) { // Update
       updateMusic(musicToSave.id, musicToSave.title, musicToSave.artist, musicToSave.url, musicToSave.cover)
-      this.setState({musics: getMusics()})
+      this.setState({ musics: getMusics() })
     } else { // Create
       createMusic(musicToSave.title, musicToSave.artist, musicToSave.url, musicToSave.cover);
-      this.setState({musics: getMusics()})
+      this.setState({ musics: getMusics() })
     }
     this.hideForm();
   }
@@ -77,8 +82,18 @@ export default class App extends Component {
   handleDeleteMusic(musicId) {
     if (window.confirm('Are you sure?')) {
       deleteMusic(musicId)
-      this.setState({musics: getMusics()})
+      this.setState({ musics: getMusics() })
     }
+  }
+
+  handleAddComment(musicId, comment) {
+    addCommentMusic(musicId, comment);
+    this.setState({ musics: getMusics() });
+  }
+
+  handleRateMusic(musicId, rating) {
+    rateMusic(musicId, rating);
+    this.setState({ musics: getMusics() });
   }
 
   render() {
@@ -87,7 +102,7 @@ export default class App extends Component {
       <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
         <Header />
         <div className="flex flex-1 min-h-0">
-          <Sidebar 
+          <Sidebar
             musics={musics}
             onMusicClick={this.handleMusicClick}
             onAddMusic={() => this.showForm()}
@@ -98,18 +113,23 @@ export default class App extends Component {
               <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
                 <MusicForm
                   music={editingMusic}
-                  onSave={this.handleSaveMusic} 
-                  onCancel={this.hideForm} 
+                  onSave={this.handleSaveMusic}
+                  onCancel={this.hideForm}
                 />
               </div>
             )}
             {currentMusic ? (
-              <MusicView music={currentMusic} onBack={this.handleBack} />
+              <MusicView
+                music={currentMusic}
+                onBack={this.handleBack}
+                onAddComment={this.handleAddComment}
+                onRateMusic={this.handleRateMusic}
+              />
             ) : (
-              <MusicGrid 
+              <MusicGrid
                 musics={musics}
-                onMusicClick={this.handleMusicClick} 
-                onPlaySong={this.playSong} 
+                onMusicClick={this.handleMusicClick}
+                onPlaySong={this.playSong}
                 onEdit={this.showForm}
                 onDelete={this.handleDeleteMusic}
                 onAddMusic={() => this.showForm()}

@@ -23,7 +23,7 @@ export default class StarRating extends Component {
                 name="rating"
                 className="hidden"
                 value={starValue}
-                onClick={() => this.setState({ rating: starValue })}
+                onClick={() => { this.setState({ rating: starValue }); this.props.onRate(starValue); }}
               />
               <Star
                 className="cursor-pointer"
