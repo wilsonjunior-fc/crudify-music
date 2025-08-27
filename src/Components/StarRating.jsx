@@ -27,7 +27,7 @@ export default class StarRating extends Component {
               />
               <Star
                 className="cursor-pointer"
-                size={24}
+                size={32}
                 color={starValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
                 onMouseEnter={() => this.setState({ hover: starValue })}
                 onMouseLeave={() => this.setState({ hover: 0 })}

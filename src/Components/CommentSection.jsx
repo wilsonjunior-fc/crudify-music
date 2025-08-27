@@ -5,6 +5,7 @@ export default class CommentSection extends Component {
     super(props);
     this.state = {
       newComment: '',
+      initialComments: this.props.initialComments
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -13,12 +14,12 @@ export default class CommentSection extends Component {
     e.preventDefault();
     if (this.state.newComment.trim()) {
       this.props.onAddComment(this.state.newComment);
-      this.setState({ newComment: '' });
+      this.setState({initialComments: [...this.state.initialComments, this.state.newComment], newComment: ''});
     }
   }
 
   render() {
-    const { initialComments } = this.props;
+    const { initialComments } = this.state;
     const { newComment } = this.state;
     return (
       <div className="mt-6">
