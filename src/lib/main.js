@@ -16,11 +16,18 @@ for (let i = 1; i <= 20; i++) {
 localStorage.setItem('musics', JSON.stringify(musics))
 ------------------------*/
 
-const getMusicById = (id) => getMusics().filter(music => music.id === id)[0]
+//const getMusicById = (id) => getMusics().filter(music => music.id === id)[0]
 const findMusicIndexById = (id, i = 0) => getMusics()[i].id === id ? i : findMusicIndexById(id, i + 1)
 
-export let getMusics = () => (JSON.parse(localStorage.getItem('musics')) || [])
-export function updateMusic() { }
+export function getMusics(){
+    return (JSON.parse(localStorage.getItem('musics')) || [])
+}
+export function updateMusic(id, title, artist, url, cover) {
+    const idx = findMusicIndexById(id)
+    const musics = getMusics()
+    musics[idx] = { ...musics[idx], title, artist, url, cover}
+    localStorage.setItem('musics', JSON.stringify(musics))
+}
 export function createMusic(title, artist, url, cover = '') {
     localStorage.setItem("musics", JSON.stringify([...getMusics(),
     {

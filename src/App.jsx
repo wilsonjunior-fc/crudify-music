@@ -65,11 +65,8 @@ export default class App extends Component {
 
   handleSaveMusic(musicToSave) {
     if (musicToSave.id) { // Update
-      this.setState(prevState => ({
-        musics: prevState.musics.map(music => 
-          music.id === musicToSave.id ? musicToSave : music
-        ),
-      }));
+      updateMusic(musicToSave.id, musicToSave.title, musicToSave.artist, musicToSave.url, musicToSave.cover)
+      this.setState({musics: getMusics()})
     } else { // Create
       createMusic(musicToSave.title, musicToSave.artist, musicToSave.url, musicToSave.cover);
       this.setState({musics: getMusics()})
