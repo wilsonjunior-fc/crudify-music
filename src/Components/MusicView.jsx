@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player';
 
 export default function MusicView({ music, onBack, onAddComment, onRateMusic }) {
   return (
-    <div>
+    <div className='overflow-y-auto'>
       <button onClick={onBack} className="mb-4 flex items-center gap-2 text-zinc-400 hover:text-zinc-100">
         <ChevronLeft />
         Back
@@ -22,7 +22,7 @@ export default function MusicView({ music, onBack, onAddComment, onRateMusic }) 
           </div>
         </div>
         <div className="w-2/3">
-          <ReactPlayer src={music.url} width='100%' height='340px' />
+          <ReactPlayer src={music.url} width='100%' height='340px' controls />
         </div>
       </div>
       <div className="mt-8">

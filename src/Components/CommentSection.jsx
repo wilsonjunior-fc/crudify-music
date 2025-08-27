@@ -5,7 +5,7 @@ export default class CommentSection extends Component {
     super(props);
     this.state = {
       newComment: '',
-      initialComments: this.props.initialComments
+      comments: this.props.initialComments
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -14,13 +14,12 @@ export default class CommentSection extends Component {
     e.preventDefault();
     if (this.state.newComment.trim()) {
       this.props.onAddComment(this.state.newComment);
-      this.setState({initialComments: [...this.state.initialComments, this.state.newComment], newComment: ''});
+      this.setState({comments: [...this.state.comments, this.state.newComment], newComment: ''});
     }
   }
 
   render() {
-    const { initialComments } = this.state;
-    const { newComment } = this.state;
+    const { comments, newComment } = this.state;
     return (
       <div className="mt-6">
         <h3 className="text-2xl font-bold mb-4">Comments</h3>
@@ -37,12 +36,12 @@ export default class CommentSection extends Component {
           </button>
         </form>
         <div className="space-y-4">
-          {initialComments && initialComments.map((comment, index) => (
+          {comments && comments.map((comment, index) => (
             <div key={index} className="bg-zinc-800 p-3 rounded">
               <p>{comment}</p>
             </div>
           ))}
-          {(!initialComments || initialComments.length === 0) && (
+          {(!comments || comments.length === 0) && (
             <p className="text-zinc-400">Still dont have comments, be the first!</p>
           )}
         </div>
