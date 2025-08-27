@@ -1,7 +1,7 @@
 import { v7 as genRandomUuid } from "uuid"
 
-//import musicsExamples from "./musicExamples.json"
-//localStorage.setItem("musics", JSON.stringify(musicsExamples))
+import musicsExamples from "./musicExamples.json"
+localStorage.setItem("musics", JSON.stringify(musicsExamples))
 /*{
     id: genRandoUuid(),
     title: `Music ${i}`,
@@ -37,7 +37,7 @@ export const createMusic = (title, artist, url, cover = '') => {
         artist,
         url,
         cover,
-        starRating: 3,
+        starRating: 0,
         comments: []
     }
     ]))
