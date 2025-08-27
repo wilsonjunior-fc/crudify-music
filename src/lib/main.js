@@ -1,24 +1,41 @@
 import { v7 as genRandoUuid } from "uuid"
 
-
+/* only for debug, remove this before
 let musics = []
 for (let i = 1; i <= 20; i++) {
     musics.push({
         id: genRandoUuid(),
         title: `Music ${i}`,
         artist: `Artist${i}`,
+        url: '',
         cover: '',
-        starRating: 3,
-        comments: [
-            "teste"
-        ]
+        starRating: 0,
+        comments: []
     })
 }
 localStorage.setItem('musics', JSON.stringify(musics))
+------------------------*/
+
+const getMusicById = (id) => getMusics().filter(music => music.id === id)[0]
+const findMusicIndexById = (id, i = 0) => getMusics()[i].id === id ? i : findMusicIndexById(id, i + 1)
 
 export let getMusics = () => (JSON.parse(localStorage.getItem('musics')) || [])
-export function editMusic() { }
-export function deleteMusic() { }
-export function addMusic() { }
+export function updateMusic() { }
+export function createMusic(title, artist, url, cover = '') {
+    localStorage.setItem("musics", JSON.stringify([...getMusics(),
+    {
+        id: genRandoUuid(),
+        title,
+        artist,
+        url,
+        cover,
+        starRating: 0,
+        comments: []
+    }
+    ]))
+}
+export function deleteMusic(id) {
+    localStorage.setItem('musics', JSON.stringify(getMusics().filter(music => music.id !== id)))
+}
 export function commentMusic() { }
 export function rateMusic() { }

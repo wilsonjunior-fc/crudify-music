@@ -1,8 +1,6 @@
 {
-  "name": "crudfy-music",
+  "name": "crudify-music",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://linksyyy.github.io/crudify-music/static",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",

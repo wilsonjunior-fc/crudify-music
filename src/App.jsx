@@ -5,7 +5,7 @@ import MusicGrid from './Components/MusicGrid';
 import Player from './Components/Player';
 import MusicView from './Components/MusicView';
 import MusicForm from './Components/MusicForm';
-import { getMusics } from './lib/main';
+import { getMusics, updateMusic, deleteMusic, createMusic } from './lib/main';
 
 export default class App extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ export default class App extends Component {
         isPlaying: !prevState.isPlaying,
       }));
     }
-  }album
+  }
 
   handleMusicClick(music) {
     this.setState({ currentMusic: music });
@@ -66,52 +66,55 @@ export default class App extends Component {
   handleSaveMusic(musicToSave) {
     if (musicToSave.id) { // Update
       this.setState(prevState => ({
-        music: prevState.music.map(music => 
+        musics: prevState.musics.map(music => 
           music.id === musicToSave.id ? musicToSave : music
         ),
       }));
     } else { // Create
-      this.setState(prevState => ({
-        albums: [...prevState.albums, { ...musicToSave, id: Date.now() }],
-      }));
+      createMusic(musicToSave.title, musicToSave.artist, musicToSave.url, musicToSave.cover);
+      this.setState({musics: getMusics()})
     }
     this.hideForm();
   }
 
   handleDeleteMusic(musicId) {
     if (window.confirm('Are you sure?')) {
-      this.setState(prevState => ({
-        musics: prevState.musics.filter(music => music.id !== musicId),
-      }));
+      deleteMusic(musicId)
+      this.setState({musics: getMusics()})
     }
   }
 
   render() {
-    const { song, isPlaying, currentMusic: currentAlbum, musics, isFormVisible, editingMusic } = this.state;
+    const { song, isPlaying, currentMusic, musics, isFormVisible, editingMusic } = this.state;
     return (
       <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
         <Header />
         <div className="flex flex-1 min-h-0">
-          <Sidebar />
+          <Sidebar 
+            musics={musics}
+            onMusicClick={this.handleMusicClick}
+            onAddMusic={() => this.showForm()}
+            onHomeClick={this.handleBack}
+          />
           <div className="flex-1 min-w-0 flex flex-col min-h-0 p-6">
             {isFormVisible && (
               <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
                 <MusicForm
-                  album={editingMusic}
-                  onSave={this.handleSaveAlbum} 
+                  music={editingMusic}
+                  onSave={this.handleSaveMusic} 
                   onCancel={this.hideForm} 
                 />
               </div>
             )}
-            {currentAlbum ? (
-              <MusicView music={currentAlbum} onBack={this.handleBack} />
+            {currentMusic ? (
+              <MusicView music={currentMusic} onBack={this.handleBack} />
             ) : (
               <MusicGrid 
                 musics={musics}
                 onMusicClick={this.handleMusicClick} 
                 onPlaySong={this.playSong} 
                 onEdit={this.showForm}
-                onDelete={this.handleDeleteAlbum}
+                onDelete={this.handleDeleteMusic}
                 onAddMusic={() => this.showForm()}
               />
             )}
