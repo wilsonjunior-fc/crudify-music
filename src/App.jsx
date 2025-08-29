@@ -7,7 +7,8 @@ import MusicView from './Components/MusicView';
 import MusicForm from './Components/MusicForm';
 import {
   getMusics, updateMusic, deleteMusic,
-  createMusic, addCommentMusic, rateMusic
+  createMusic, addCommentMusic, rateMusic,
+  deleteComment, getComments
 } from './lib/main';
 
 export default class App extends Component {
@@ -34,6 +35,7 @@ export default class App extends Component {
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
     this.handleAddComment = this.handleAddComment.bind(this);
+    this.handleDeleteComment = this.handleDeleteComment.bind(this);
     this.handleRateMusic = this.handleRateMusic.bind(this);
   }
 
@@ -91,6 +93,11 @@ export default class App extends Component {
     this.setState({ musics: getMusics() });
   }
 
+  handleDeleteComment(musicId, commentID) {
+    deleteComment(musicId, commentID);
+    this.setState({ musics: getMusics() });
+  }
+
   handleRateMusic(musicId, rating) {
     rateMusic(musicId, rating);
     this.setState({ musics: getMusics() });
@@ -123,7 +130,9 @@ export default class App extends Component {
                 music={currentMusic}
                 onBack={this.handleBack}
                 onAddComment={this.handleAddComment}
+                onDeleteComment={this.handleDeleteComment}
                 onRateMusic={this.handleRateMusic}
+                onGetComments={getComments}
               />
             ) : (
               <MusicGrid

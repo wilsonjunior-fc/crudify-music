@@ -402,9 +402,6 @@
   .border-gray-800 {
     border-color: var(--color-gray-800);
   }
-  .bg-black {
-    background-color: var(--color-black);
-  }
   .bg-black\/75 {
     background-color: color-mix(in srgb, #000 75%, transparent);
     @supports (color: color-mix(in lab, red, red)) {

@@ -3,7 +3,7 @@ import StarRating from './StarRating';
 import CommentSection from './CommentSection';
 import ReactPlayer from 'react-player';
 
-export default function MusicView({ music, onBack, onAddComment, onRateMusic }) {
+export default function MusicView({ music, onBack, onGetComments, onAddComment, onRateMusic, onDeleteComment }) {
   return (
     <div className='overflow-y-auto'>
       <button onClick={onBack} className="mb-4 flex items-center gap-2 text-zinc-400 hover:text-zinc-100">
@@ -27,11 +27,13 @@ export default function MusicView({ music, onBack, onAddComment, onRateMusic }) 
       </div>
       <div className="mt-8">
         <CommentSection
+          musicID={music.id}
           initialComments={music.comments}
-          onAddComment={(comment) => onAddComment(music.id, comment)}
+          onAddComment={onAddComment}
+          onDeleteComment={onDeleteComment}
+          onGetComments={onGetComments}
         />
       </div>
     </div>
   );
 }
-

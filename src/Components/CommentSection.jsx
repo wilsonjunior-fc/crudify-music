@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Trash2 } from 'lucide-react';
 
 export default class CommentSection extends Component {
   constructor(props) {
@@ -8,15 +9,27 @@ export default class CommentSection extends Component {
       comments: this.props.initialComments
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
+    this.getComments = this.getComments.bind(this)
   }
 
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.newComment.trim()) {
-      this.props.onAddComment(this.state.newComment);
-      this.setState({comments: [...this.state.comments, this.state.newComment], newComment: ''});
+      this.props.onAddComment(this.props.musicID, this.state.newComment);
+      this.setState({ comments: this.getComments(), newComment: ''});
     }
   }
+
+  handleDelete(commentID) {
+    this.props.onDeleteComment(this.props.musicID, commentID);
+    this.setState({ comments: this.getComments()});
+  }
+
+  getComments() {
+    return this.props.onGetComments(this.props.musicID)
+  }
+
 
   render() {
     const { comments, newComment } = this.state;
@@ -37,8 +50,16 @@ export default class CommentSection extends Component {
         </form>
         <div className="space-y-4">
           {comments && comments.map((comment, index) => (
-            <div key={index} className="bg-zinc-800 p-3 rounded">
-              <p>{comment}</p>
+            <div key={index} className="bg-zinc-800 p-3 rounded flex flex-row group relative">
+              <div>
+                <p>{comment.text}</p>
+                <h6 className='text-xs text-gray-500'>id: {comment.id}</h6>
+              </div>
+              <div className="absolute right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button onClick={() => this.handleDelete(comment.id)} className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
           ))}
           {(!comments || comments.length === 0) && (

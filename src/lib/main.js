@@ -1,31 +1,44 @@
 import { v7 as genRandomUuid } from "uuid"
+import { generate as genRandomShortId } from "shortid";
 
-import musicsExamples from "./musicExamples.json"
-localStorage.setItem("musics", JSON.stringify(musicsExamples))
+//import musicsExamples from "./musicExamples.json"
+//localStorage.setItem("musics", JSON.stringify(musicsExamples))
 /*{
-    id: genRandoUuid(),
+    id: genRandomUuid(),
     title: `Music ${i}`,
     artist: `Artist${i}`,
     url: '',
     cover: '',
     starRating: 0,
-    comments: []
+    comments: [ {id: genRandomShortId(), text: ''}]
 }*/
 
-//const getMusicById = (id) => getMusics().filter(music => music.id === id)[0]
-const findMusicIndexById = (id, i = 0) => getMusics()[i].id === id ? i : findMusicIndexById(id, i + 1)
+const findIndexById = (arr, id, index = 0) => {
+    if (!arr[index]) {
+        return -1;
+    }
+
+    if (arr[index].id === id) {
+        return index;
+    }
+    
+    return findIndexById(arr, id, index + 1);
+};
 
 export const getMusics = () => {
-    const musics = JSON.parse(localStorage.getItem('musics')) || [];
-    return musics.map(music => ({
-        ...music,
-        starRating: music.starRating || 0,
-        comments: music.comments || [],
-    }));
+    return JSON.parse(localStorage.getItem('musics')) || [];
+}
+
+export const getComments = (musicID) => {
+    const musics = getMusics()
+    const musicIndex = findIndexById(musics, musicID)
+    if (musicIndex === -1) return []
+    return musics[musicIndex].comments
 }
 export const updateMusic = (id, title, artist, url, cover, starRating, comments) => {
-    const idx = findMusicIndexById(id)
     const musics = getMusics()
+    const idx = findIndexById(musics, id)
+    if (idx === -1) return
     musics[idx] = { ...musics[idx], title, artist, url, cover, starRating, comments }
     localStorage.setItem('musics', JSON.stringify(musics))
 }
@@ -45,17 +58,26 @@ export const createMusic = (title, artist, url, cover = '') => {
 export const deleteMusic = (id) => {
     localStorage.setItem('musics', JSON.stringify(getMusics().filter(music => music.id !== id)))
 }
-export const addCommentMusic = (id, comment) => {
+export const addCommentMusic = (musicId, comment) => {
     const musics = getMusics();
-    const musicIndex = findMusicIndexById(id);
+    const musicIndex = findIndexById(musics, musicId);
     if (musicIndex !== -1) {
-        musics[musicIndex].comments = [...musics[musicIndex].comments, comment]
+        musics[musicIndex].comments = [...musics[musicIndex].comments,
+        { id: genRandomShortId(), text: comment }]
         localStorage.setItem('musics', JSON.stringify(musics));
     }
 }
+export const deleteComment = (musicID, commentID) => {
+    const musics = getMusics()
+    const musicIndex = findIndexById(musics, musicID)
+    if (musicIndex === -1) return
+    const newComments = musics[musicIndex].comments.filter(comment => comment.id !== commentID)
+    musics[musicIndex].comments = newComments
+    localStorage.setItem('musics', JSON.stringify(musics))
+}
 export const rateMusic = (id, rate) => {
     const musics = getMusics();
-    const musicIndex = findMusicIndexById(id);
+    const musicIndex = findIndexById(musics, id);
     if (musicIndex !== -1) {
         musics[musicIndex].starRating = rate;
         localStorage.setItem('musics', JSON.stringify(musics));
