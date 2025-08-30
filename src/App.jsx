@@ -19,6 +19,7 @@ export default class App extends Component {
       currentMusic: null,
       editingMusic: null,
       isFormVisible: false,
+      isSidebarVisible: false,
       song: {
         url: null,
         title: 'No song selected',
@@ -28,6 +29,7 @@ export default class App extends Component {
     };
     this.playSong = this.playSong.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
     this.handleMusicClick = this.handleMusicClick.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleSaveMusic = this.handleSaveMusic.bind(this);
@@ -37,6 +39,12 @@ export default class App extends Component {
     this.handleAddComment = this.handleAddComment.bind(this);
     this.handleDeleteComment = this.handleDeleteComment.bind(this);
     this.handleRateMusic = this.handleRateMusic.bind(this);
+  }
+
+  toggleSidebar() {
+    this.setState(prevState => ({
+      isSidebarVisible: !prevState.isSidebarVisible,
+    }));
   }
 
   playSong(newSong) {
@@ -56,6 +64,9 @@ export default class App extends Component {
 
   handleMusicClick(music) {
     this.setState({ currentMusic: music });
+    if (window.innerWidth < 768) {
+      this.setState({ isSidebarVisible: false });
+    }
   }
 
   handleBack() {
@@ -104,16 +115,17 @@ export default class App extends Component {
   }
 
   render() {
-    const { song, isPlaying, currentMusic, musics, isFormVisible, editingMusic } = this.state;
+    const { song, isPlaying, currentMusic, musics, isFormVisible, editingMusic, isSidebarVisible } = this.state;
     return (
       <div className="fixed inset-0 bg-gray-900 text-white flex flex-col">
-        <Header />
+        <Header onToggleSidebar={this.toggleSidebar} />
         <div className="flex flex-1 min-h-0">
           <Sidebar
             musics={musics}
             onMusicClick={this.handleMusicClick}
             onAddMusic={() => this.showForm()}
             onHomeClick={this.handleBack}
+            isSidebarVisible={isSidebarVisible}
           />
           <div className="flex-1 min-w-0 flex flex-col min-h-0 p-6">
             {isFormVisible && (

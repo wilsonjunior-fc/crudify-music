@@ -20,7 +20,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PUBLIC_URL=. react-scripts start",
     "build": "react-scripts build",
     "build:css": "bunx tailwindcss -o ./public/tailwind.css --watch",
     "test": "react-scripts test",

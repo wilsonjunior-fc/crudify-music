@@ -3,9 +3,11 @@ import { TbZoom } from "react-icons/tb";
 import { CgAlbum } from "react-icons/cg";
 import { PlusCircle } from 'lucide-react';
 
-export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick }) {
+export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick, isSidebarVisible }) {
+  const sidebarClasses = `w-64 bg-gray-900 text-white p-4 border-r-3 border-gray-800 flex-col gap-2 md:flex ${isSidebarVisible ? 'flex absolute z-40 h-full' : 'hidden'}`;
+
   return (
-    <aside className="w-64 bg-gray-900 text-white p-4 border-r-3 border-gray-800 flex flex-col gap-2">
+    <aside className={sidebarClasses}>
       <nav className="space-y-2">
         <button onClick={onHomeClick} className='hover:underline cursor-pointer bg-gray-800 p-2 my-2 hover:bg-gray-700 rounded-full px-18 flex items-center w-full gap-2 transition-transform duration-200 hover:scale-105'>
           <FaHome /> Home
