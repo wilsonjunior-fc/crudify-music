@@ -10,11 +10,11 @@ export default function MusicGrid({ musics, onMusicClick, onPlaySong, onEdit, on
           Add music
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:[perspective:1000px]">
         {musics.map((music) => (
           <div
             key={music.id}
-            className='bg-secondary hover:bg-tertiary p-4 rounded transition-transform duration-200 hover:scale-105 group'
+            className='bg-secondary hover:bg-tertiary p-4 rounded transition-transform duration-300 group hover:scale-105 md:[transform-style:preserve-3d] md:hover:[transform:scale(1.05)_rotateY(15deg)]'
           >
             <div className="relative">
               <img 

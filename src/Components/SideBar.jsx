@@ -4,7 +4,7 @@ import { CgAlbum } from "react-icons/cg";
 import { PlusCircle } from 'lucide-react';
 
 export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick, isSidebarVisible }) {
-  const sidebarClasses = `w-64 bg-primary text-white p-4 border-r-3 border-secondary flex-col gap-2 md:flex ${isSidebarVisible ? 'flex absolute z-40 h-full' : 'hidden'}`;
+  const sidebarClasses = `w-64 bg-primary text-white p-4 border-r-3 border-secondary flex flex-col gap-2 absolute z-40 h-full transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`;
 
   return (
     <aside className={sidebarClasses}>
@@ -25,11 +25,11 @@ export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick,
           </button>
         </div>
 
-        <div className="space-y-1 overflow-y-auto flex-grow">
+        <div className="space-y-1 overflow-y-auto flex-grow [perspective:800px]">
           {musics.map(music => (
             <div 
               onClick={(e) => { e.preventDefault(); onMusicClick(music); }}
-              className="block p-2 rounded bg-secondary z-30 hover:bg-primary truncate cursor-pointer"
+              className="block p-2 rounded bg-secondary z-30 hover:bg-primary truncate cursor-pointer transition-transform duration-300 [transform-style:preserve-3d] hover:[transform:scale(1.03)_rotateY(10deg)]"
             >
               {music.title}
             </div>
