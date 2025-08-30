@@ -10,8 +10,8 @@ export default function MusicView({ music, onBack, onGetComments, onAddComment, 
         <ChevronLeft />
         Back
       </button>
-      <div className="flex flex-row gap-8">
-        <div className="w-1/3 flex flex-col">
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="w-full md:w-1/3 flex flex-col">
           <h1 className="text-4xl font-bold">{music.title}</h1>
           <h2 className="text-xl text-zinc-400 mb-4">{music.artist}</h2>
           <div className='mt-auto'>
@@ -21,8 +21,10 @@ export default function MusicView({ music, onBack, onGetComments, onAddComment, 
             />
           </div>
         </div>
-        <div className="w-2/3 mr-20">
-          <ReactPlayer src={music.url} width='100%' height='340px' controls />
+        <div className="w-full md:w-2/3">
+          <div className="aspect-video">
+            <ReactPlayer src={music.url} width="100%" height="100%" controls />
+          </div>
         </div>
       </div>
       <div className="mt-8">
