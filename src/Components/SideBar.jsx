@@ -4,15 +4,15 @@ import { CgAlbum } from "react-icons/cg";
 import { PlusCircle } from 'lucide-react';
 
 export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick, isSidebarVisible }) {
-  const sidebarClasses = `w-64 bg-gray-900 text-white p-4 border-r-3 border-gray-800 flex-col gap-2 md:flex ${isSidebarVisible ? 'flex absolute z-40 h-full' : 'hidden'}`;
+  const sidebarClasses = `w-64 bg-primary text-white p-4 border-r-3 border-secondary flex-col gap-2 md:flex ${isSidebarVisible ? 'flex absolute z-40 h-full' : 'hidden'}`;
 
   return (
     <aside className={sidebarClasses}>
       <nav className="space-y-2">
-        <button onClick={onHomeClick} className='hover:underline cursor-pointer bg-gray-800 p-2 my-2 hover:bg-gray-700 rounded-full px-18 flex items-center w-full gap-2 transition-transform duration-200 hover:scale-105'>
+        <button onClick={onHomeClick} className='hover:underline cursor-pointer bg-secondary p-2 my-2 hover:bg-tertiary rounded-full px-18 flex items-center w-full gap-2 transition-transform duration-200 hover:scale-105'>
           <FaHome /> Home
         </button>
-        <button onClick={onHomeClick} className='hover:underline cursor-pointer bg-gray-800 p-2 my-2 hover:bg-gray-700 rounded-full px-18 flex items-center w-full gap-2 transition-transform duration-200 hover:scale-105'>
+        <button onClick={onHomeClick} className='hover:underline cursor-pointer bg-secondary p-2 my-2 hover:bg-tertiary rounded-full px-18 flex items-center w-full gap-2 transition-transform duration-200 hover:scale-105'>
           <TbZoom /> Browse
         </button>
       </nav>
@@ -29,7 +29,7 @@ export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick,
           {musics.map(music => (
             <div 
               onClick={(e) => { e.preventDefault(); onMusicClick(music); }}
-              className="block p-2 rounded bg-gray-800 z-30 hover:bg-gray-900 truncate cursor-pointer"
+              className="block p-2 rounded bg-secondary z-30 hover:bg-primary truncate cursor-pointer"
             >
               {music.title}
             </div>

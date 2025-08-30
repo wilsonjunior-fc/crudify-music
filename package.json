@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "homepage": "https://linksyyy.github.io/crudify-music/",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.12",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "PUBLIC_URL=. react-scripts start",
     "build": "react-scripts build",
-    "build:css": "bunx tailwindcss -m -o ./public/tailwind.css --watch",
+    "build:css": "bunx tailwindcss -i ./src/index.css -o ./public/tailwind.css --watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "bun run build",
@@ -50,8 +51,6 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.12",
     "autoprefixer": "^10.4.21",
-    "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.12"
   }
 }

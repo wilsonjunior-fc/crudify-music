@@ -14,7 +14,7 @@ export default function MusicGrid({ musics, onMusicClick, onPlaySong, onEdit, on
         {musics.map((music) => (
           <div
             key={music.id}
-            className='bg-gray-800 hover:bg-gray-700 p-4 rounded transition-transform duration-200 hover:scale-105 group'
+            className='bg-secondary hover:bg-tertiary p-4 rounded transition-transform duration-200 hover:scale-105 group'
           >
             <div className="relative">
               <img 

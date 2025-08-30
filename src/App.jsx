@@ -117,7 +117,7 @@ export default class App extends Component {
   render() {
     const { song, isPlaying, currentMusic, musics, isFormVisible, editingMusic, isSidebarVisible } = this.state;
     return (
-      <div className="fixed inset-0 bg-primary-800 text-white flex flex-col">
+      <div className="fixed inset-0 bg-primary text-white flex flex-col">
         <Header onToggleSidebar={this.toggleSidebar} />
         <div className="flex flex-1 min-h-0">
           <Sidebar

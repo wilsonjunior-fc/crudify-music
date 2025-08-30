@@ -6,7 +6,7 @@ export default class Player extends Component {
   render() {
     const { song, isPlaying, onTogglePlay } = this.props;
     return (
-      <footer className="bg-gray-800 text-white p-4 flex items-center justify-between">
+      <footer className="bg-secondary text-white p-4 flex items-center justify-between">
         <div style={{ width: '200px' }}>
           <p className="font-bold truncate">{song.title}</p>
           <p className="text-sm text-gray-400">{song.artist}</p>
