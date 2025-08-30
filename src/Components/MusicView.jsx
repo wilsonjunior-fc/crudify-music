@@ -21,7 +21,7 @@ export default function MusicView({ music, onBack, onGetComments, onAddComment, 
             />
           </div>
         </div>
-        <div className="w-2/3">
+        <div className="w-2/3 mr-20">
           <ReactPlayer src={music.url} width='100%' height='340px' controls />
         </div>
       </div>

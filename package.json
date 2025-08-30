@@ -22,7 +22,7 @@
   "scripts": {
     "start": "PUBLIC_URL=. react-scripts start",
     "build": "react-scripts build",
-    "build:css": "bunx tailwindcss -o ./public/tailwind.css --watch",
+    "build:css": "bunx tailwindcss -m -o ./public/tailwind.css --watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "bun run build",

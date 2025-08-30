@@ -9,9 +9,6 @@
   <title>Crudfy Music</title>
   <style>
     .scene {
-      width: 200px;
-      height: 200px;
-      perspective: 600px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,7 +19,7 @@
       height: 60px;
       position: relative;
       transform-style: preserve-3d;
-      animation: rotate-cube 1s infinite linear;
+      animation: rotate-cube 1s infinite ease-in;
     }
 
     .face {
@@ -30,7 +27,7 @@
       width: 60px;
       height: 60px;
       border: 1px solid #ccc;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -38,16 +35,16 @@
       color: white;
     }
 
-    .front  { transform: rotateY(  0deg) translateZ(30px); }
-    .back   { transform: rotateY(180deg) translateZ(30px); }
-    .right  { transform: rotateY( 90deg) translateZ(30px); }
-    .left   { transform: rotateY(-90deg) translateZ(30px); }
-    .top    { transform: rotateX( 90deg) translateZ(30px); }
-    .bottom { transform: rotateX(-90deg) translateZ(30px); }
+    .front  { transform: rotateY(  0deg) translateZ(40px); }
+    .back   { transform: rotateY(180deg) translateZ(40px); }
+    .right  { transform: rotateY( 90deg) translateZ(40px); }
+    .left   { transform: rotateY(-90deg) translateZ(40px); }
+    .top    { transform: rotateX( 90deg) translateZ(40px); }
+    .bottom { transform: rotateX(-90deg) translateZ(40px); }
 
     @keyframes rotate-cube {
       from { transform: rotateX(0deg) rotateY(0deg); }
-      to   { transform: rotateX(360deg) rotateY(360deg); }
+      to   { transform: rotateX(180deg) rotateY(360deg); }
     }
   </style>
 </head>

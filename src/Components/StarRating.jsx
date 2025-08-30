@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Star } from 'lucide-react';
+import { TiStar } from "react-icons/ti";
 
 export default class StarRating extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class StarRating extends Component {
   render() {
     const { rating, hover } = this.state;
     return (
-      <div className="flex items-center gap-1 py-4">
+      <div className="flex ml-5 items-center gap-1 py-4">
         {[...Array(5)].map((_, index) => {
           const starValue = index + 1;
           return (
@@ -25,7 +25,7 @@ export default class StarRating extends Component {
                 value={starValue}
                 onClick={() => { this.setState({ rating: starValue }); this.props.onRate(starValue); }}
               />
-              <Star
+              <TiStar
                 className="cursor-pointer"
                 size={32}
                 color={starValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
