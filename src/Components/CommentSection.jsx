@@ -50,7 +50,7 @@ export default class CommentSection extends Component {
         </form>
         <div className="space-y-4">
           {comments && comments.map((comment, index) => (
-            <div key={index} className="bg-zinc-800 p-3 rounded flex flex-row group relative">
+            <div key={index} className="bg-zinc-800 hover:bg-secondary p-3 rounded flex flex-row group relative">
               <div>
                 <p>{comment.text}</p>
                 <h6 className='text-xs text-gray-500'>id: {comment.id}</h6>

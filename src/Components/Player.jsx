@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import ReactPlayer from 'react-player';
 import { FaPlay, FaPause } from "react-icons/fa";
 import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 
@@ -6,13 +7,16 @@ export default class Player extends Component {
   render() {
     const { song, isPlaying, onTogglePlay } = this.props;
     return (
-      <footer className="bg-secondary text-white p-4 flex items-center justify-between">
-        <div style={{ width: '200px' }}>
-          <p className="font-bold truncate">{song.title}</p>
-          <p className="text-sm text-gray-400">{song.artist}</p>
+      <footer className="bg-secondary text-white p-4 flex items-center justify-start">
+
+        <div className="flex">
+          <div>
+            <p className="font-bold truncate">{song.title}</p>
+            <p className="text-sm text-gray-400">{song.artist}</p>
+          </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center justify-center w-4/4">
           <button disabled className="mx-3 text-gray-600 cursor-not-allowed">
             <TbPlayerTrackPrevFilled className='size-6' />
           </button>
@@ -33,9 +37,17 @@ export default class Player extends Component {
             <TbPlayerTrackNextFilled className='size-6' />
           </button>
         </div>
-        <div style={{ width: '200px' }}>
+
+        <div className='ml-200 hidden'>
+          <ReactPlayer 
+            src={song.url} 
+            playing={isPlaying} 
+            onEnded={onTogglePlay}
+          />
         </div>
       </footer>
     );
   }
 }
+
+

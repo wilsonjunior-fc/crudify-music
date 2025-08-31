@@ -29,7 +29,7 @@ export default function Sidebar({ musics, onMusicClick, onAddMusic, onHomeClick,
           {musics.map(music => (
             <div 
               onClick={(e) => { e.preventDefault(); onMusicClick(music); }}
-              className="block p-2 rounded bg-secondary z-30 hover:bg-primary truncate cursor-pointer transition-transform duration-300 [transform-style:preserve-3d] hover:[transform:scale(1.03)_rotateY(10deg)]"
+              className="block p-2 rounded bg-primary z-30 hover:bg-secondary truncate cursor-pointer transition-transform duration-200 [transform-style:preserve-3d] hover:[transform:scale(1)_rotateY(10deg)]"
             >
               {music.title}
             </div>

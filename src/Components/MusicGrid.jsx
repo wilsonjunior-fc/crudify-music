@@ -14,12 +14,12 @@ export default function MusicGrid({ musics, onMusicClick, onPlaySong, onEdit, on
         {musics.map((music) => (
           <div
             key={music.id}
-            className='bg-secondary hover:bg-tertiary p-4 rounded transition-transform duration-300 group hover:scale-105 md:[transform-style:preserve-3d] md:hover:[transform:scale(1.05)_rotateY(15deg)]'
+            className='bg-secondary hover:bg-tertiary p-4 rounded transition-transform duration-200 group md:hover:[transform:scale(1.05)_rotateY(10deg)]'
           >
             <div className="relative">
               <img 
                 src={music.cover || 'https://via.placeholder.com/150'}
-                alt={""}
+                alt=""
                 className="w-full h-32 object-cover rounded mb-2 cursor-pointer" 
                 onClick={() => onMusicClick(music)}
               />
