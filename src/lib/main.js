@@ -1,8 +1,10 @@
 import { v7 as genRandomUuid } from "uuid"
 import { generate as genRandomShortId } from "shortid";
 
+const musicsKey = 'musics'
+
 //import musicsExamples from "./musicExamples.json"
-//localStorage.setItem("musics", JSON.stringify(musicsExamples))
+//localStorage.setItem(musicsKey, JSON.stringify(musicsExamples))
 /*{
     id: genRandomUuid(),
     title: `Music ${i}`,
@@ -10,7 +12,7 @@ import { generate as genRandomShortId } from "shortid";
     url: '',
     cover: '',
     starRating: 0,
-    comments: [ {id: genRandomShortId(), text: ''}]
+    comments: [ {id: genRandomShortId(), text: '', date: ...}]
 }*/
 
 const findIndexById = (arr, id, index = 0) => {
@@ -26,7 +28,7 @@ const findIndexById = (arr, id, index = 0) => {
 };
 
 export const getMusics = () => {
-    return JSON.parse(localStorage.getItem('musics')) || [];
+    return JSON.parse(localStorage.getItem(musicsKey)) || [];
 }
 
 export const getComments = (musicID) => {
@@ -40,10 +42,10 @@ export const updateMusic = (id, title, artist, url, cover, starRating, comments)
     const idx = findIndexById(musics, id)
     if (idx === -1) return
     musics[idx] = { ...musics[idx], title, artist, url, cover, starRating, comments }
-    localStorage.setItem('musics', JSON.stringify(musics))
+    localStorage.setItem(musicsKey, JSON.stringify(musics))
 }
 export const createMusic = (title, artist, url, cover = '') => {
-    localStorage.setItem("musics", JSON.stringify([...getMusics(),
+    localStorage.setItem(musicsKey, JSON.stringify([...getMusics(),
     {
         id: genRandomUuid(),
         title,
@@ -56,7 +58,7 @@ export const createMusic = (title, artist, url, cover = '') => {
     ]))
 }
 export const deleteMusic = (id) => {
-    localStorage.setItem('musics', JSON.stringify(getMusics().filter(music => music.id !== id)))
+    localStorage.setItem(musicsKey, JSON.stringify(getMusics().filter(music => music.id !== id)))
 }
 export const addCommentMusic = (musicId, comment) => {
     const musics = getMusics();
@@ -65,7 +67,7 @@ export const addCommentMusic = (musicId, comment) => {
     if (musicIndex !== -1) {
         musics[musicIndex].comments = [...musics[musicIndex].comments,
         { id: genRandomShortId(), text: comment, date: date.toLocaleString("en-GB", { timeZone: "UTC" }) }]
-        localStorage.setItem('musics', JSON.stringify(musics));
+        localStorage.setItem(musicsKey, JSON.stringify(musics));
     }
 }
 export const deleteComment = (musicID, commentID) => {
@@ -74,13 +76,13 @@ export const deleteComment = (musicID, commentID) => {
     if (musicIndex === -1) return
     const newComments = musics[musicIndex].comments.filter(comment => comment.id !== commentID)
     musics[musicIndex].comments = newComments
-    localStorage.setItem('musics', JSON.stringify(musics))
+    localStorage.setItem(musicsKey, JSON.stringify(musics))
 }
 export const rateMusic = (id, rate) => {
     const musics = getMusics();
     const musicIndex = findIndexById(musics, id);
     if (musicIndex !== -1) {
         musics[musicIndex].starRating = rate;
-        localStorage.setItem('musics', JSON.stringify(musics));
+        localStorage.setItem(musicsKey, JSON.stringify(musics));
     }
 }

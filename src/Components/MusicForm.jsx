@@ -42,6 +42,7 @@ export default class MusicForm extends Component {
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-zinc-300">Title</label>
           <input
+          autoFocus
             id="title"
             name="title"
             type="text"
