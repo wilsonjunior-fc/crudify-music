@@ -16,9 +16,12 @@ export default class App extends Component {
     super(props);
     this.state = {
       musics: getMusics(),
+      browseMusics: undefined,
       currentMusic: null,
       editingMusic: null,
+      isBrowseVisible: false,
       isFormVisible: false,
+
       isSidebarVisible: false,
       song: {
         url: null,
@@ -115,7 +118,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { song, isPlaying, currentMusic, musics, isFormVisible, editingMusic, isSidebarVisible } = this.state;
+    const { song, browseMusics, isPlaying, currentMusic, musics, isFormVisible, isBrowseVisible, editingMusic, isSidebarVisible } = this.state;
     return (
       <div className="fixed inset-0 bg-primary text-white flex flex-col">
         <Header onToggleSidebar={this.toggleSidebar} />
@@ -137,6 +140,13 @@ export default class App extends Component {
                 />
               </div>
             )}
+
+            {isBrowseVisible && (
+              <div className='fixed inset-0 bg-black/75'>
+                
+              </div>
+            )}
+
             {currentMusic ? (
               <MusicView
                 music={currentMusic}
@@ -148,7 +158,7 @@ export default class App extends Component {
               />
             ) : (
               <MusicGrid
-                musics={musics}
+                musics={(browseMusics || musics)}
                 onMusicClick={this.handleMusicClick}
                 onPlaySong={this.playSong}
                 onEdit={this.showForm}
