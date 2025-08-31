@@ -21,7 +21,7 @@ const findIndexById = (arr, id, index = 0) => {
     if (arr[index].id === id) {
         return index;
     }
-    
+
     return findIndexById(arr, id, index + 1);
 };
 
@@ -61,9 +61,10 @@ export const deleteMusic = (id) => {
 export const addCommentMusic = (musicId, comment) => {
     const musics = getMusics();
     const musicIndex = findIndexById(musics, musicId);
+    const date = new Date()
     if (musicIndex !== -1) {
         musics[musicIndex].comments = [...musics[musicIndex].comments,
-        { id: genRandomShortId(), text: comment }]
+        { id: genRandomShortId(), text: comment, date: date.toLocaleString("en-GB", { timeZone: "UTC" }) }]
         localStorage.setItem('musics', JSON.stringify(musics));
     }
 }

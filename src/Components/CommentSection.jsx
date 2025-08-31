@@ -17,13 +17,13 @@ export default class CommentSection extends Component {
     e.preventDefault();
     if (this.state.newComment.trim()) {
       this.props.onAddComment(this.props.musicID, this.state.newComment);
-      this.setState({ comments: this.getComments(), newComment: ''});
+      this.setState({ comments: this.getComments(), newComment: '' });
     }
   }
 
   handleDelete(commentID) {
     this.props.onDeleteComment(this.props.musicID, commentID);
-    this.setState({ comments: this.getComments()});
+    this.setState({ comments: this.getComments() });
   }
 
   getComments() {
@@ -51,9 +51,12 @@ export default class CommentSection extends Component {
         <div className="space-y-4">
           {comments && comments.map((comment, index) => (
             <div key={index} className="bg-zinc-800 hover:bg-secondary p-3 rounded flex flex-row group relative">
-              <div>
+              <div className='w-full'>
                 <p>{comment.text}</p>
-                <h6 className='text-xs text-gray-500'>id: {comment.id}</h6>
+                <div className='flex w-full justify-between items-center'>
+                  <h6 className='text-xs text-gray-500'>{comment.date} </h6>
+                  <h6 className='text-xs text-gray-600'>id: {comment.id}</h6>
+                </div>
               </div>
               <div className="absolute right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button onClick={() => this.handleDelete(comment.id)} className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full">
